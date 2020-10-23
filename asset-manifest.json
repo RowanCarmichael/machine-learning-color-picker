@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/machine-learning-color-picker/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/machine-learning-color-picker/static/js/main.b594b606.chunk.js",
+    "main.js.map": "/machine-learning-color-picker/static/js/main.b594b606.chunk.js.map",
+    "runtime~main.js": "/machine-learning-color-picker/static/js/runtime~main.0645d8d6.js",
+    "runtime~main.js.map": "/machine-learning-color-picker/static/js/runtime~main.0645d8d6.js.map",
+    "static/js/2.adb04c89.chunk.js": "/machine-learning-color-picker/static/js/2.adb04c89.chunk.js",
+    "static/js/2.adb04c89.chunk.js.map": "/machine-learning-color-picker/static/js/2.adb04c89.chunk.js.map",
+    "index.html": "/machine-learning-color-picker/index.html",
+    "precache-manifest.85633cc48414650cc48e5bd5b7b2947a.js": "/machine-learning-color-picker/precache-manifest.85633cc48414650cc48e5bd5b7b2947a.js",
+    "service-worker.js": "/machine-learning-color-picker/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/machine-learning-color-picker/static/css/main.5ecd60fb.chunk.css.map",
+    "static/media/loading.svg": "/machine-learning-color-picker/static/media/loading.34f48416.svg",
+    "static/media/thumb-down.svg": "/machine-learning-color-picker/static/media/thumb-down.96bdc12e.svg",
+    "static/media/thumb-up.svg": "/machine-learning-color-picker/static/media/thumb-up.cbf4a4aa.svg",
+    "static/media/up-arrow.svg": "/machine-learning-color-picker/static/media/up-arrow.cb215ae4.svg"
+  }
+}
