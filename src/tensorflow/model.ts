@@ -2,36 +2,48 @@ import * as tf from '@tensorflow/tfjs';
 
 export default class Model {
   model: tf.Sequential;
-  setLabel: string[];
+  currentSelections: boolean[] ;
   constructor() {
-    this.setLabel = [];
+    this.currentSelections = [true, false];
     this.model = tf.sequential();
     this.model.add(tf.layers.dense({units: 10, inputShape: [3], activation: 'sigmoid' }));
     this.model.add(tf.layers.dense({units: 10, activation: 'sigmoid' }));
-    this.model.add(tf.layers.dense({units: 6, activation: 'softmax' }));
+    this.model.add(tf.layers.dense({units: 2, activation: 'softmax' }));
     this.model.compile({ loss: 'categoricalCrossentropy', optimizer: 'adam' });
   }
 
-  learn(colors: number[][], labels: string[]) {
+  learn(colors: number[][], selections: boolean[], onFinishedLearning: () => void) {
+    console.log('learning...')
     const xs = tf.tensor(colors);
-    this.setLabel = Array.from(new Set(labels))
-    const ys = tf.oneHot(tf.tensor1d(labels.map((a) => (
-      this.setLabel.findIndex(e => e === a)
-    )), 'int32'), 6);
+    this.currentSelections = Array.from(new Set(selections))
+    const ys = tf.oneHot(tf.tensor1d(selections.map(selection => (
+      this.currentSelections.findIndex(currentSelection => currentSelection === selection)
+    )), 'int32'), 2);
 
-    this.model.fit(xs, ys, {epochs: 1000, shuffle: true}).then(() => {
-      console.log('finished learning');
-    }).catch((e) => {
+    this.model.fit(xs, ys, {epochs: 200, shuffle: true}).then(() => {
+      onFinishedLearning();
+      console.log('learning finished')
+    }).catch((e: { message: string }) => {
       console.log(e.message);
     });
   }
 
   predict(color: number[]) {
-    const t = this.model.predict(tf.tensor([color])) as tf.Tensor<tf.Rank>;
-    const pred = t.dataSync();
-
-    for (let i = 0; i < Array.from(pred).length; i += 1) {
-      console.log(this.setLabel[i], Array.from(pred)[i]);
+    console.log('predicting...')
+    const tensor = this.model.predict(tf.tensor([color])) as tf.Tensor<tf.Rank>;
+    const prediction = tensor.dataSync();
+    let truePercentage = 0.5;
+    if (this.currentSelections.length === 1) {
+      this.currentSelections[1] = !this.currentSelections[0]
     }
+
+    for (let i = 0; i < Array.from(prediction).length; i += 1) {
+      console.log(this.currentSelections[i], Array.from(prediction)[i]);
+      if (this.currentSelections[i]) {
+        truePercentage = Array.from(prediction)[i] as number;
+      }
+    }
+
+    return truePercentage;
   }
 }
